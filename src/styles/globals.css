@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-size: auto;
+    font-weight: auto;
+  }
+
+  :root {
+    --background: 30 22% 94%; /* #F1EFEC */
+    --foreground: 146 22% 20%; /* Primary foreground color approximation */
+
+    --card: 30 22% 94%; /* Same as background */
+    --card-foreground: 146 22% 20%; /* Same as primary foreground */
+
+    --popover: 30 22% 94%; /* Same as background */
+    --popover-foreground: 146 22% 20%; /* Same as primary foreground */
+
+    --primary: 146 22% 20%; /* #283A2C */
+    --primary-foreground: 30 22% 94%; /* Contrast with primary */
+
+    --secondary: 67 17% 82%; /* #DADDC5 */
+    --secondary-foreground: 146 22% 20%; /* Contrast with secondary */
+
+    --muted: 67 17% 82%; /* Same as secondary */
+    --muted-foreground: 146 22% 20%; /* Contrast with muted */
+
+    --accent: 67 17% 82%; /* Same as secondary */
+    --accent-foreground: 146 22% 20%; /* Contrast with accent */
+
+    --destructive: 0 67% 49%; /* #D2302C */
+    --destructive-foreground: 30 22% 94%; /* Contrast with destructive */
+
+    --border: 30 10% 85%; /* Slightly darker than background */
+    --input: 30 10% 85%; /* Slightly darker than background */
+    --ring: 146 22% 20%; /* Use primary for ring */
+
+    --radius: 0.2rem;
+
+    --success: 100 39% 38%; /* #469924 */
+    --warning: 51 94% 65%; /* #FAE54D */
+    --error: 0 67% 49%; /* Same as destructive */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply flex min-h-[100vh] flex-col bg-background text-foreground;
+  }
+}
+
+html {
+  opacity: 0;
+}
+
+html[data-theme="light"] {
+  opacity: initial;
+}
+
+@layer components {
+  .hide-input-spinner {
+    @apply [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none;
+  }
+}
