@@ -15,7 +15,10 @@ export const LogoutButton = ({ className = "" }: { className?: string }) => {
   if (data == null) return null;
 
   return (
-    <Button className={cn(className)} onClick={() => authClient.signOut()}>
+    <Button
+      className={cn("rounded-lg", className)}
+      onClick={() => authClient.signOut()}
+    >
       Logout
     </Button>
   );

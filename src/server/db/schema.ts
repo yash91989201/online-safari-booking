@@ -14,11 +14,11 @@ export const enquiryTable = mysqlTable("enquiry", {
   id: varchar("id", { length: 36 })
     .primaryKey()
     .$defaultFn(() => createId()),
-  name: varchar("name", { length: 512 }),
-  email: varchar("email", { length: 512 }),
-  phoneNumber: varchar("phone_number", { length: 15 }),
-  message: text("message"),
-  resolved: boolean("resolved").default(false),
+  name: varchar("name", { length: 512 }).notNull(),
+  email: varchar("email", { length: 512 }).notNull(),
+  phoneNumber: varchar("phone_number", { length: 15 }).notNull(),
+  message: text("message").notNull(),
+  resolved: boolean("resolved").default(false).notNull(),
 });
 
 export const user = mysqlTable("user", {

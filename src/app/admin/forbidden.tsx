@@ -27,12 +27,21 @@ export default function ForbiddenPage() {
             permissions or contact an administrator.
           </p>
         </CardContent>
-        <CardFooter>
+        <CardFooter className="justify-center gap-3">
           <Link
             href="/"
-            className={buttonVariants({ className: "mx-auto rounded-lg" })}
+            className={buttonVariants({
+              variant: "outline",
+              className: "rounded-lg",
+            })}
           >
             Go to Home
+          </Link>
+          <Link
+            href="/auth/admin/log-in"
+            className={buttonVariants({ className: "rounded-lg" })}
+          >
+            Admin Login
           </Link>
         </CardFooter>
       </Card>

@@ -7,7 +7,8 @@ import {
 // TABLES
 import { enquiryTable } from "@/server/db/schema";
 // SCHEMAS
-import { EnquirySchema } from "@/lib/schema";
+import { EnquiryResolvedSchema, EnquirySchema } from "@/lib/schema";
+import { eq } from "drizzle-orm";
 
 export const enquiryRouter = createTRPCRouter({
   create: publicProcedure
@@ -32,4 +33,27 @@ export const enquiryRouter = createTRPCRouter({
   getAll: protectedProcedure.query(({ ctx }) => {
     return ctx.db.query.enquiryTable.findMany();
   }),
+
+  resolved: protectedProcedure
+    .input(EnquiryResolvedSchema)
+    .mutation(async ({ ctx, input }): Promise<ProcedureStatusType> => {
+      const queryRes = await ctx.db
+        .update(enquiryTable)
+        .set({
+          resolved: input.enquiryResolved,
+        })
+        .where(eq(enquiryTable.id, input.enquiryId));
+
+      if (queryRes[0].affectedRows === 0) {
+        return {
+          status: "FAILED",
+          message: "Unable to resolve query, try again",
+        };
+      }
+
+      return {
+        status: "SUCCESS",
+        message: "Enquiry marked as resolved",
+      };
+    }),
 });

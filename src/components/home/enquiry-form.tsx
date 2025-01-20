@@ -53,7 +53,7 @@ export const EnquiryForm = () => {
   };
 
   return (
-    <Card className="hidden w-80 border-none lg:block xl:w-96">
+    <Card className="hidden w-80 rounded-xl border-none lg:block xl:w-96">
       <CardHeader>
         <CardTitle className="text-center text-lg font-bold">
           Need help with anything?
@@ -119,7 +119,7 @@ export const EnquiryForm = () => {
                     <Textarea
                       {...field}
                       className="resize-none bg-white"
-                      cols={4}
+                      rows={4}
                       placeholder="What do you need help with?"
                     />
                   </FormControl>

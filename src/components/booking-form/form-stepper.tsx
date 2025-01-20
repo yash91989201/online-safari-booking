@@ -29,7 +29,7 @@ export const FormStepper = ({ steps }: FormStepperProps) => {
 
   return (
     <ScrollArea className="mx-auto mb-3 w-full max-w-3xl pb-3 md:mb-6">
-      <div className="flex items-center justify-start" ref={scrollRef}>
+      <div className="flex items-center justify-center" ref={scrollRef}>
         {steps.map((step, index) => (
           <div
             key={step.title}

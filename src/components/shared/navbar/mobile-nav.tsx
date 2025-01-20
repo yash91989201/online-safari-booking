@@ -24,22 +24,22 @@ export const MobileNav = () => {
           <ul className="mt-4 space-y-4">
             <li>
               <Link href="/" className="text-lg">
-                Home
+                <SheetTrigger>Home</SheetTrigger>
               </Link>
             </li>
             <li>
               <Link href="/corbett-bookings" className="text-lg">
-                Corbett Bookings
+                <SheetTrigger>Corbett Bookings</SheetTrigger>
               </Link>
             </li>
             <li>
               <Link href="/enquiry" className="text-lg">
-                Booking enquiry
+                <SheetTrigger>Booking enquiry</SheetTrigger>
               </Link>
             </li>
             <li>
               <Link href="/contact-us" className="text-lg">
-                Contact Us
+                <SheetTrigger>Contact Us</SheetTrigger>
               </Link>
             </li>
           </ul>

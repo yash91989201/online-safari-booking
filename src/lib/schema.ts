@@ -73,3 +73,8 @@ export const SignupSchema = z
     message: "Passwords don't match",
     path: ["confirmPassword"],
   });
+
+export const EnquiryResolvedSchema = z.object({
+  enquiryId: z.string(),
+  enquiryResolved: z.boolean(),
+});

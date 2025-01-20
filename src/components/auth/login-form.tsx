@@ -25,6 +25,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
 
 export function LoginForm() {
   const router = useRouter();
@@ -37,7 +38,7 @@ export function LoginForm() {
     },
   });
 
-  const { control, handleSubmit } = loginForm;
+  const { control, handleSubmit, formState } = loginForm;
 
   async function onSubmit(formData: LoginType) {
     const loginActionRes = await authClient.signIn.email({
@@ -96,7 +97,10 @@ export function LoginForm() {
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button className="w-full">
+              {formState.isSubmitting && (
+                <Loader2 className="mr-3 animate-spin" />
+              )}
               Log in
             </Button>
           </form>

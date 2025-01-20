@@ -11,7 +11,7 @@ export const CorbettPreview = () => {
         src="/assets/corbett-mock-img.png"
         alt="Corbett scenery"
         fill={true}
-        className="z-0"
+        className="z-0 hidden md:block"
       />
 
       {/* Content */}

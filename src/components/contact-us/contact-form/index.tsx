@@ -62,7 +62,11 @@ export const ContactForm = () => {
               <FormItem>
                 <FormLabel>Your Name</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="Enter your name" />
+                  <Input
+                    {...field}
+                    className="bg-white"
+                    placeholder="Enter your name"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -80,6 +84,7 @@ export const ContactForm = () => {
                   <Input
                     {...field}
                     type="email"
+                    className="bg-white"
                     placeholder="Enter your email"
                   />
                 </FormControl>
@@ -99,6 +104,7 @@ export const ContactForm = () => {
                   <Input
                     {...field}
                     type="tel"
+                    className="bg-white"
                     placeholder="Enter your phone number"
                   />
                 </FormControl>
@@ -117,8 +123,9 @@ export const ContactForm = () => {
                 <FormControl>
                   <Textarea
                     {...field}
+                    rows={6}
+                    className="resize-none bg-white"
                     placeholder="Enter your message here..."
-                    rows={5}
                   />
                 </FormControl>
                 <FormMessage />
@@ -127,9 +134,7 @@ export const ContactForm = () => {
           />
 
           {/* Submit Button */}
-          <Button className="w-full bg-warning text-primary">
-            Send Message
-          </Button>
+          <Button className="w-full rounded-lg">Send Message</Button>
         </form>
       </Form>
     </div>

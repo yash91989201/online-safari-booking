@@ -17,10 +17,11 @@ CREATE TABLE `account` (
 --> statement-breakpoint
 CREATE TABLE `enquiry` (
 	`id` varchar(36) NOT NULL,
-	`name` varchar(512),
-	`email` varchar(512),
-	`phone_number` varchar(15),
-	`message` text,
+	`name` varchar(512) NOT NULL,
+	`email` varchar(512) NOT NULL,
+	`phone_number` varchar(15) NOT NULL,
+	`message` text NOT NULL,
+	`resolved` boolean NOT NULL DEFAULT false,
 	CONSTRAINT `enquiry_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
