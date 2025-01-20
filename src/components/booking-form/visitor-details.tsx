@@ -41,7 +41,7 @@ export const VisitorDetails = () => {
       </div>
       <div className="space-y-3 self-center">
         {/* Zone Selection */}
-        <div className="flex flex-col gap-3 md:flex-row">
+        <div className="flex flex-col gap-3 lg:flex-row">
           <FormField
             control={control}
             name="visitingDetails.zone"
@@ -98,7 +98,7 @@ export const VisitorDetails = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-3 md:flex-row">
+        <div className="flex flex-col gap-3 lg:flex-row">
           {/* Adults Selection */}
           <FormField
             control={control}
@@ -156,7 +156,7 @@ export const VisitorDetails = () => {
           />
         </div>
 
-        <div className="flex flex-col gap-3 md:flex-row">
+        <div className="flex flex-col gap-3 lg:flex-row">
           {/* Traveller's Name */}
           <FormField
             control={control}

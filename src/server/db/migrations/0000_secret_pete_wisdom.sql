@@ -15,6 +15,28 @@ CREATE TABLE `account` (
 	CONSTRAINT `account_id` PRIMARY KEY(`id`)
 );
 --> statement-breakpoint
+CREATE TABLE `corbett_booking` (
+	`id` varchar(36) NOT NULL,
+	`date` varchar(12),
+	`zone` varchar(16),
+	`adults` int,
+	`childrens` int,
+	`traveller_name` varchar(256),
+	`phone_number` varchar(16),
+	CONSTRAINT `corbett_booking_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
+CREATE TABLE `corbett_visitors` (
+	`id` varchar(36) NOT NULL,
+	`name` varchar(256),
+	`nationality` varchar(16),
+	`age` int,
+	`id_type` varchar(16),
+	`id_number` varchar(16),
+	`booking_id` varchar(36) NOT NULL,
+	CONSTRAINT `corbett_visitors_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
 CREATE TABLE `enquiry` (
 	`id` varchar(36) NOT NULL,
 	`name` varchar(512) NOT NULL,
@@ -61,4 +83,5 @@ CREATE TABLE `verification` (
 );
 --> statement-breakpoint
 ALTER TABLE `account` ADD CONSTRAINT `account_user_id_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `corbett_visitors` ADD CONSTRAINT `corbett_visitors_booking_id_corbett_booking_id_fk` FOREIGN KEY (`booking_id`) REFERENCES `corbett_booking`(`id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE `session` ADD CONSTRAINT `session_user_id_user_id_fk` FOREIGN KEY (`user_id`) REFERENCES `user`(`id`) ON DELETE no action ON UPDATE no action;

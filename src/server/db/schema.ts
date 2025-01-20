@@ -1,4 +1,5 @@
 import { createId } from "@paralleldrive/cuid2";
+import { relations } from "drizzle-orm";
 import {
   mysqlTable,
   mysqlTableCreator,
@@ -6,6 +7,7 @@ import {
   varchar,
   timestamp,
   boolean,
+  int,
 } from "drizzle-orm/mysql-core";
 
 export const createTable = mysqlTableCreator((name) => name);
@@ -20,6 +22,52 @@ export const enquiryTable = mysqlTable("enquiry", {
   message: text("message").notNull(),
   resolved: boolean("resolved").default(false).notNull(),
 });
+
+export const corbettBookingTable = mysqlTable("corbett_booking", {
+  id: varchar("id", { length: 36 })
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  date: varchar("date", { length: 12 }),
+  zone: varchar("zone", { length: 16 }),
+  adults: int("adults"),
+  childrens: int("childrens"),
+  travellerName: varchar("traveller_name", { length: 256 }),
+  phoneNumber: varchar("phone_number", { length: 16 }),
+});
+
+export const corbettBookingTableRelations = relations(
+  corbettBookingTable,
+  ({ many }) => ({
+    visitors: many(corbettVisitorsTable, {
+      relationName: "corbettBookingVisitors",
+    }),
+  }),
+);
+
+export const corbettVisitorsTable = mysqlTable("corbett_visitors", {
+  id: varchar("id", { length: 36 })
+    .primaryKey()
+    .$defaultFn(() => createId()),
+  name: varchar("name", { length: 256 }),
+  nationality: varchar("nationality", { length: 16 }),
+  age: int("age"),
+  idType: varchar("id_type", { length: 16 }),
+  idNumber: varchar("id_number", { length: 16 }),
+  corbettBookingId: varchar("booking_id", { length: 36 })
+    .notNull()
+    .references(() => corbettBookingTable.id),
+});
+
+export const corbettVisitorsTableRelations = relations(
+  corbettVisitorsTable,
+  ({ one }) => ({
+    corbettBooking: one(corbettBookingTable, {
+      fields: [corbettVisitorsTable.corbettBookingId],
+      references: [corbettBookingTable.id],
+      relationName: "corbettBookingVisitors",
+    }),
+  }),
+);
 
 export const user = mysqlTable("user", {
   id: varchar("id", { length: 36 }).primaryKey(),

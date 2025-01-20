@@ -1,5 +1,6 @@
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { enquiryRouter } from "./routers/enquiry";
+import { corbettBookingRouter } from "./routers/corbett-booking";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +9,7 @@ import { enquiryRouter } from "./routers/enquiry";
  */
 export const appRouter = createTRPCRouter({
   enquiry: enquiryRouter,
+  corbettBooking: corbettBookingRouter,
 });
 
 // export type definition of API

@@ -17,9 +17,29 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { api } from "@/trpc/react";
+import { getDayFromDate, showMutationResToast } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
+import Image from "next/image";
 
 export const BookingForm = () => {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+  const [calculatedAmount, setCalculatedAmount] = useState(0);
+
+  const {
+    mutateAsync: createCorbettBooking,
+    isPending: creatingCorbettBooking,
+  } = api.corbettBooking.create.useMutation();
 
   const bookingForm = useForm<BookingFormType>({
     resolver: zodResolver(BookingFormSchema),
@@ -34,8 +54,9 @@ export const BookingForm = () => {
     },
   });
 
-  const { handleSubmit, formState, trigger } = bookingForm;
-  console.log(formState.errors);
+  const { handleSubmit, trigger, watch } = bookingForm;
+  const formData = watch();
+
   const steps = [
     {
       title: "Visitor details",
@@ -56,9 +77,20 @@ export const BookingForm = () => {
     },
   ];
 
-  const onSubmit = async (data: BookingFormType) => {
-    // Handle final submission
-    console.log("Form submitted:", data);
+  const calculatePrice = () => {
+    const { vehicle, adults, children } = formData.visitingDetails;
+    if (vehicle === "jeep") {
+      return 7500; // Flat rate
+    } else if (vehicle === "canter") {
+      return 2200 * (adults + children);
+    }
+    return 0;
+  };
+
+  const onSubmit = async () => {
+    const totalPrice = calculatePrice();
+    setCalculatedAmount(totalPrice);
+    setShowPaymentDialog(true);
   };
 
   const prevStep = () => {
@@ -69,14 +101,11 @@ export const BookingForm = () => {
 
   const nextStep = async () => {
     const field = steps[currentStep]?.field;
-    if (field === undefined) return;
+    const title = steps[currentStep]?.title;
+    if (field === undefined && title === undefined) return;
 
     const output = await trigger(field as BookingFormKeys);
     if (!output) return;
-
-    if (currentStep < steps.length - 2) {
-      await handleSubmit(onSubmit)();
-    }
 
     setCurrentStep((step) => step + 1);
   };
@@ -94,6 +123,33 @@ export const BookingForm = () => {
     }
   };
 
+  const handlePaymentComplete = async () => {
+    // Trigger the TRPC mutation to create the booking
+    const bookingData = {
+      visitingDetails: {
+        ...formData.visitingDetails,
+        date: getDayFromDate(formData.visitingDetails.date),
+      },
+      idProof: formData.idProof.map((visitor) => ({
+        name: visitor.name,
+        age: visitor.age,
+        nationality: visitor.nationality,
+        idType: visitor.idType,
+        idDetail: visitor.idDetail,
+      })),
+    };
+
+    const mutationRes = await createCorbettBooking(bookingData);
+
+    // Show the response as a toast notification
+    showMutationResToast({
+      status: mutationRes.status,
+      message: mutationRes.message,
+    });
+
+    router.refresh();
+  };
+
   return (
     <Card>
       <CardHeader className="p-3 md:p-6">
@@ -103,9 +159,9 @@ export const BookingForm = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="p-3 md:p-6">{renderStep()}</CardContent>
           <CardFooter className="justify-center">
-            {currentStep == steps.length - 1 ? (
+            {currentStep === steps.length - 1 ? (
               <Button className="rounded-md bg-warning px-8 py-2 text-black hover:bg-warning/80">
-                Pay: Rs. 7,500
+                Pay: Rs. {calculatePrice()}
               </Button>
             ) : (
               <div className="flex items-center gap-3">
@@ -129,6 +185,42 @@ export const BookingForm = () => {
           </CardFooter>
         </form>
       </Form>
+
+      {/* Payment Dialog */}
+      <Dialog open={showPaymentDialog} onOpenChange={setShowPaymentDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Payment</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="relative mx-auto h-48 w-48">
+              <Image
+                src="/assets/phone-pe-qr-code.png"
+                alt="Phone Pe QR Code"
+                fill={true}
+                loading="eager"
+              />
+            </div>
+            <p className="text-center">
+              Scan this code and pay Rs. {calculatedAmount}. Once the payment
+              has been made from your end, click on the &quot;Payment
+              Complete&quot; button below.
+            </p>
+          </div>
+          <DialogFooter>
+            <Button
+              type="button"
+              className="rounded-md px-8 py-2"
+              onClick={handlePaymentComplete}
+            >
+              {creatingCorbettBooking && (
+                <Loader2 className="mr-1.5 animate-spin" />
+              )}
+              Payment Complete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 };

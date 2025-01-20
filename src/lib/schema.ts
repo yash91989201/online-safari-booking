@@ -46,8 +46,29 @@ export const BookingFormSchema = z.object({
     z.object({
       name: z.string().min(1, "Name is required"),
       age: z.number().min(1),
-      nationality: z.enum(["indian", "foreigner"]),
-      idType: z.enum(["aadhar_card", "passport"]),
+      nationality: z.string(),
+      idType: z.string(),
+      idDetail: z.string().min(1, "ID number is required"),
+    }),
+  ),
+});
+
+export const CorbettBookingInput = z.object({
+  visitingDetails: z.object({
+    date: z.string(),
+    zone: z.string().min(1, "Zone is required"),
+    vehicle: z.string().min(1, "Vehicle is required"),
+    adults: z.number().min(1).max(6),
+    children: z.number().min(0).max(6),
+    travellerName: z.string().min(1, "Traveller name is required"),
+    phoneNumber: PhoneSchema,
+  }),
+  idProof: z.array(
+    z.object({
+      name: z.string().min(1, "Name is required"),
+      age: z.number().min(1),
+      nationality: z.string(),
+      idType: z.string(),
       idDetail: z.string().min(1, "ID number is required"),
     }),
   ),
