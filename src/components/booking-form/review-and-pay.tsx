@@ -1,7 +1,6 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
-import { Button } from "@/components/ui/button";
 import type { BookingFormType } from "@/lib/types";
 
 export const ReviewAndPay = () => {

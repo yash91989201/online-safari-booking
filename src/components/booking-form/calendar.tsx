@@ -87,7 +87,7 @@ export default function Calendar({
           disabled={isDisabled}
           type="button"
           className={cn(
-            "flex h-10 w-10 items-center justify-center rounded-full transition-colors",
+            "flex size-8 items-center justify-center rounded-full text-sm transition-colors md:size-10 md:text-base",
             isDisabled
               ? "cursor-not-allowed text-gray-300"
               : "text-primary hover:bg-primary/10",
@@ -162,7 +162,7 @@ export default function Calendar({
         {["Sun", "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat"].map((day) => (
           <div
             key={day}
-            className="flex h-9 w-14 items-center justify-center rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-white"
+            className="flex h-6 w-10 items-center justify-center rounded-lg bg-primary px-3 py-1.5 text-xs font-semibold text-white md:h-9 md:w-14 md:text-sm"
           >
             {day}
           </div>

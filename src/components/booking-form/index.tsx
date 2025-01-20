@@ -57,7 +57,6 @@ export const BookingForm = () => {
   ];
 
   const onSubmit = async (data: BookingFormType) => {
-    console.log(currentStep);
     // Handle final submission
     console.log("Form submitted:", data);
   };
@@ -73,7 +72,6 @@ export const BookingForm = () => {
     if (field === undefined) return;
 
     const output = await trigger(field as BookingFormKeys);
-    console.log(output);
     if (!output) return;
 
     if (currentStep < steps.length - 2) {
@@ -98,12 +96,12 @@ export const BookingForm = () => {
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="p-3 md:p-6">
         <FormStepper steps={steps} />
       </CardHeader>
       <Form {...bookingForm}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <CardContent>{renderStep()}</CardContent>
+          <CardContent className="p-3 md:p-6">{renderStep()}</CardContent>
           <CardFooter className="justify-center">
             {currentStep == steps.length - 1 ? (
               <Button className="rounded-md bg-warning px-8 py-2 text-black hover:bg-warning/80">

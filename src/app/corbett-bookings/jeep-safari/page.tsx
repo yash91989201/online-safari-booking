@@ -39,8 +39,8 @@ export default function Page() {
       </section>
       <CorbettPreview />
       <section>
-        <div className="container mx-auto flex px-6 py-16">
-          <div className="relative h-[60vh] w-2/5">
+        <div className="container mx-auto flex flex-col space-y-3 px-3 py-8 lg:flex-row lg:space-y-0 lg:px-6 lg:py-16">
+          <div className="relative h-[30vh] w-full lg:h-[60vh] lg:w-2/5">
             {/* Background overlay */}
             <div className="absolute inset-0 z-10 bg-black bg-opacity-25"></div>
             <Image

@@ -23,8 +23,8 @@ export default function Home() {
       </section>
       <CorbettPreview />
       <section>
-        <div className="container mx-auto flex px-6 py-16">
-          <div className="relative h-[60vh] w-2/5">
+        <div className="container mx-auto flex flex-col space-y-3 px-3 py-8 lg:flex-row lg:space-y-0 lg:px-6 lg:py-16">
+          <div className="relative h-[30vh] w-full lg:h-[60vh] lg:w-2/5">
             {/* Background overlay */}
             <div className="absolute inset-0 z-10 bg-black bg-opacity-25"></div>
             <Image
@@ -35,7 +35,7 @@ export default function Home() {
             />
           </div>
 
-          <div className="mx-auto flex max-w-3xl flex-1 flex-col space-y-3 p-8">
+          <div className="mx-auto flex max-w-3xl flex-1 flex-col space-y-3 lg:p-8">
             <h1 className="text-2xl font-semibold">How to reach corbett ? </h1>
             <p>
               Ramnagar is perhaps the nearest to approach the Corbett National

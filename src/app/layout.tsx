@@ -6,6 +6,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 import { Navbar } from "@/components/shared/navbar";
 import { cn } from "@/lib/utils";
 import { Footer } from "@/components/shared/footer";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Online safari booking",
@@ -27,6 +28,7 @@ export default function RootLayout({
         <Navbar />
         <TRPCReactProvider>{children}</TRPCReactProvider>
         <Footer />
+        <Toaster />
       </body>
     </html>
   );

@@ -1,10 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { MobileNav } from "./mobile-nav";
+import { DashboardLink } from "../dashboard-link";
+import { Suspense } from "react";
 
 export const Navbar = () => {
   return (
-    <header>
+    <header className="border-b">
       <div className="container mx-auto flex items-center justify-between p-3 lg:p-6">
         {/* site logo */}
         <div className="flex items-center gap-3">
@@ -24,6 +26,11 @@ export const Navbar = () => {
             </li>
             <li>
               <Link href="/contact-us">Contact us</Link>
+            </li>
+            <li>
+              <Suspense>
+                <DashboardLink />
+              </Suspense>
             </li>
           </ul>
         </nav>

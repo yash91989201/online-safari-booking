@@ -28,8 +28,13 @@ export const MobileNav = () => {
               </Link>
             </li>
             <li>
-              <Link href="/corbett" className="text-lg">
+              <Link href="/corbett-bookings" className="text-lg">
                 Corbett Bookings
+              </Link>
+            </li>
+            <li>
+              <Link href="/enquiry" className="text-lg">
+                Booking enquiry
               </Link>
             </li>
             <li>

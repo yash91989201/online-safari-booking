@@ -20,21 +20,36 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { toast } from "sonner";
 import { EnquirySchema } from "@/lib/schema";
 import type { EnquirySchemaType } from "@/lib/types";
+import { api } from "@/trpc/react";
+import { showMutationResToast } from "@/lib/utils";
 
 export const EnquiryForm = () => {
   const enquiryForm = useForm<EnquirySchemaType>({
     resolver: zodResolver(EnquirySchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phoneNumber: "",
+      message: "",
+    },
   });
 
-  const { control, handleSubmit, formState } = enquiryForm;
+  const { control, handleSubmit, formState, reset } = enquiryForm;
+  const { mutateAsync: createEnquiry } = api.enquiry.create.useMutation();
 
-  const submitEnquiry: SubmitHandler<EnquirySchemaType> = async (data) => {
-    console.log("Enquiry submitted:", data);
-    // Replace with your mutation or API call
-    toast.success("Enquiry submitted");
+  const submitEnquiry: SubmitHandler<EnquirySchemaType> = async (formData) => {
+    const mutationRes = await createEnquiry(formData);
+
+    showMutationResToast(mutationRes);
+
+    reset({
+      name: "",
+      email: "",
+      phoneNumber: "",
+      message: "",
+    });
   };
 
   return (
@@ -80,7 +95,7 @@ export const EnquiryForm = () => {
             {/* Phone Field */}
             <FormField
               control={control}
-              name="phone"
+              name="phoneNumber"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -104,7 +119,7 @@ export const EnquiryForm = () => {
                     <Textarea
                       {...field}
                       className="resize-none bg-white"
-                      cols={3}
+                      cols={4}
                       placeholder="What do you need help with?"
                     />
                   </FormControl>
@@ -119,10 +134,10 @@ export const EnquiryForm = () => {
               type="submit"
               disabled={formState.isSubmitting}
             >
-              Submit
               {formState.isSubmitting && (
-                <Loader2 className="ml-3 animate-spin" />
+                <Loader2 className="mr-3 animate-spin" />
               )}
+              Submit
             </Button>
           </CardFooter>
         </form>
