@@ -1,13 +1,13 @@
-FROM oven/bun
+FROM node:lts
 
 WORKDIR /app
 
 COPY package.json ./
 
-RUN bun install
+RUN npm install
 
 COPY . . 
 
-RUN bun run db:migrate
+RUN npm run db:migrate
 
-ENTRYPOINT ["bun", "run", "db:studio"]
+ENTRYPOINT ["npm", "run", "db:studio"]
