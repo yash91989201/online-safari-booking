@@ -99,7 +99,7 @@ export function LoginForm() {
             />
             <Button className="w-full">
               {formState.isSubmitting && (
-                <Loader2 className="mr-3 animate-spin" />
+                <Loader2 className="mr-1.5 animate-spin" />
               )}
               Log in
             </Button>

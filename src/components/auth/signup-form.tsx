@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -24,6 +24,9 @@ import {
 } from "@/components/ui/card";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { Loader2 } from "lucide-react";
 
 export function SignupForm() {
   const router = useRouter();
@@ -38,7 +41,7 @@ export function SignupForm() {
     },
   });
 
-  const { handleSubmit, control } = signupForm;
+  const { handleSubmit, control, formState } = signupForm;
 
   async function onSubmit(formData: SignupType) {
     const signupActionRes = await authClient.signUp.email({
@@ -130,15 +133,23 @@ export function SignupForm() {
                 </FormItem>
               )}
             />
-            <Button className="w-full">Sign up</Button>
+            <Button className="w-full">
+              {!formState.isSubmitting && (
+                <Loader2 className="mr-1.5 animate-spin" />
+              )}
+              Sign up
+            </Button>
           </form>
         </Form>
       </CardContent>
       <CardFooter className="justify-center text-sm text-muted-foreground">
         Already have an account?&nbsp;
-        <a href="/auth/admin/login" className="text-primary underline">
+        <Link
+          href="/auth/admin/login"
+          className={cn(buttonVariants({ variant: "link" }), "p-0")}
+        >
           Log in
-        </a>
+        </Link>
       </CardFooter>
     </Card>
   );
