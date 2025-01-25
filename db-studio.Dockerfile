@@ -1,10 +1,10 @@
-FROM oven/bun
+FROM oven/bun as migrator
 
 WORKDIR /app
 
 COPY package.json ./
 
-RUN bun run install 
+RUN bun install 
 
 COPY . . 
 
