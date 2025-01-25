@@ -1,18 +1,17 @@
-FROM node:lts
+FROM oven/bun
 
 WORKDIR /app
 
 COPY package.json ./
 
-RUN npm install --legacy-peer-deps
+RUN bun run install 
 
 COPY . . 
 
 ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
-
 RUN echo "DATABASE_URL=${DATABASE_URL}" > .env
 
-RUN npm run db:migrate
+RUN bun run db:migrate
 
-ENTRYPOINT ["npm", "run", "db:studio"]
+ENTRYPOINT ["bun", "run", "db:studio"]
