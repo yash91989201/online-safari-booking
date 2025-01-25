@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { authClient } from "@/lib/auth-client";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -26,6 +26,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function LoginForm() {
   const router = useRouter();
@@ -108,8 +109,11 @@ export function LoginForm() {
       </CardContent>
       <CardFooter className="justify-center text-sm text-muted-foreground">
         Don’t have an account?&nbsp;
-        <Link href="/auth/admin/signup" className="text-primary underline">
-          Sign up
+        <Link
+          href="/auth/admin/signup"
+          className={cn(buttonVariants({ variant: "link" }), "p-0")}
+        >
+          Sign Up
         </Link>
       </CardFooter>
     </Card>
