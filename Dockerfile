@@ -1,16 +1,16 @@
-FROM node:lts AS base
+FROM oven/bun AS base
 
 WORKDIR /app
 
 COPY package.json ./
 
-RUN npm install --legacy-peer-deps
+RUN bun install
 
 COPY . . 
 
-RUN npm run build
+RUN bun run build
 
-FROM node:22-alpine AS final
+FROM oven/bun:alpine AS final
 
 WORKDIR /app
 
@@ -21,4 +21,4 @@ COPY --from=base /app/public ./public
 EXPOSE 3000
 
 # Start the application
-CMD ["node", "server.js"]
+CMD ["bun", "server.js"]
