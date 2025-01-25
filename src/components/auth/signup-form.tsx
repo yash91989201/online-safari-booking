@@ -134,7 +134,7 @@ export function SignupForm() {
               )}
             />
             <Button className="w-full">
-              {!formState.isSubmitting && (
+              {formState.isSubmitting && (
                 <Loader2 className="mr-1.5 animate-spin" />
               )}
               Sign up

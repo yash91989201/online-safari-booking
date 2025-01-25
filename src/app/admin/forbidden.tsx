@@ -38,7 +38,7 @@ export default function ForbiddenPage() {
             Go to Home
           </Link>
           <Link
-            href="/auth/admin/log-in"
+            href="/auth/admin/login"
             className={buttonVariants({ className: "rounded-lg" })}
           >
             Admin Login

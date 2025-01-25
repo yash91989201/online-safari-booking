@@ -131,7 +131,7 @@ export const Footer = () => {
             <ul className="mt-6 space-y-4 text-sm">
               <li>
                 <Link
-                  href="/auth/admin/log-in"
+                  href="/auth/admin/login"
                   className="transition hover:opacity-75"
                 >
                   Admin Login

@@ -108,7 +108,7 @@ export function LoginForm() {
       </CardContent>
       <CardFooter className="justify-center text-sm text-muted-foreground">
         Don’t have an account?&nbsp;
-        <Link href="/auth/admin/sign-up" className="text-primary underline">
+        <Link href="/auth/admin/signup" className="text-primary underline">
           Sign up
         </Link>
       </CardFooter>
