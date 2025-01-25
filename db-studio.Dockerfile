@@ -1,6 +1,4 @@
-FROM node:lts
-
-RUN git clone https://github.com/yash91989201/online-safari-booking.git
+FROM oven/bun 
 
 RUN bun install
 
