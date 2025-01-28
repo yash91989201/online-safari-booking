@@ -11,6 +11,7 @@ export const env = createEnv({
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
+    BETTER_AUTH_TRUSTED_ORIGINS:z.string(),
   },
 
   /**
@@ -30,6 +31,7 @@ export const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
+    BETTER_AUTH_TRUSTED_ORIGINS:process.env.BETTER_AUTH_TRUSTED_ORIGINS
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
