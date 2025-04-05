@@ -532,7 +532,7 @@ export function Footer() {
         {/* Disclaimer and Bottom Links */}
         <div className="mt-12 border-t border-gray-800 pt-6">
           <p className="mb-4 text-sm text-gray-400">
-            This is not an official website of &quotCorbett Tiger Reserve. This
+            This is not an official website of &quot;Corbett Tiger Reserve. This
             is a Registered Private Travel Agency which organizes Hotel, Safari
             and Tour Packages booking in Corbett National Park.
           </p>

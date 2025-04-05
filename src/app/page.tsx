@@ -18,7 +18,7 @@ export default function Home() {
         />
       </div>
 
-      <section className="container mx-auto px-4 py-8">
+      <section className="container mx-auto px-4 py-16">
         <h1 className="mb-4 text-3xl font-bold text-gray-800">
           Jim Corbett National Park
         </h1>
