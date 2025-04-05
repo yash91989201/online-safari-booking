@@ -290,14 +290,9 @@ export default function CorbettSafariBookingForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="Bijrani">Bijrani</SelectItem>
-                        <SelectItem value="Garjiya">Garjiya</SelectItem>
-                        <SelectItem value="Jhirna">Jhirna</SelectItem>
-                        <SelectItem value="Dhela">Dhela</SelectItem>
-                        <SelectItem value="Durgadevi">Durgadevi</SelectItem>
-                        <SelectItem value="Phato">Phato</SelectItem>
-                        <SelectItem value="Sitabani">Sitabani</SelectItem>
-                        <SelectItem value="Dhikala">Dhikala</SelectItem>
+                        <SelectItem value="any">
+                          Bijrani/Garjiya/Jhirna/Dhela/Durgadevi/Phato/Sitabani/Dhikala
+                        </SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
