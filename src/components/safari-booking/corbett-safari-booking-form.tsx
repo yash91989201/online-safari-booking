@@ -1,276 +1,452 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ChevronLeft, ChevronRight, RotateCcw } from "lucide-react";
+import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import {
+  format,
+  addMonths,
+  subMonths,
+  startOfMonth,
+  endOfMonth,
+  startOfWeek,
+  endOfWeek,
+  eachDayOfInterval,
+  isSameMonth,
+  isSameDay,
+  isToday,
+} from "date-fns";
+import { useEffect, useState } from "react";
+import clsx from "clsx";
+import { cn } from "@/lib/utils";
+
+const formSchema = z.object({
+  date: z.date({ required_error: "Date is required" }),
+  vehicle: z.string().min(1, "Please select a vehicle"),
+  zone: z.string().min(1, "Please select a zone"),
+  timing: z.string().min(1, "Please select a timing"),
+  adults: z.string().min(1, "Please select number of adults"),
+  children: z.string().optional(),
+  travelerName: z.string().min(1, "Traveler name is required"),
+  mobile: z.string().min(10, "Valid mobile number is required"),
+  email: z.string().email("Valid email is required"),
+});
 
 export default function CorbettSafariBookingForm() {
-  const [date, setDate] = useState<Date | undefined>(new Date());
-  const [month, setMonth] = useState<Date>(new Date(2025, 3));
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      date: new Date(),
+      vehicle: "",
+      zone: "",
+      timing: "",
+      adults: "",
+      children: "",
+      travelerName: "",
+      mobile: "",
+      email: "",
+    },
+  });
 
-  const handlePrevMonth = () => {
-    setMonth(new Date(month.getFullYear(), month.getMonth() - 1));
+  const [currentMonth, setCurrentMonth] = useState(startOfMonth(new Date()));
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  useEffect(() => {
+    form.setValue("date", selectedDate);
+  }, [selectedDate, form]);
+
+  const handleDateClick = (date: Date) => {
+    setSelectedDate(date);
   };
 
-  const handleNextMonth = () => {
-    setMonth(new Date(month.getFullYear(), month.getMonth() + 1));
+  const handlePrevMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
+  const handleNextMonth = () => setCurrentMonth(addMonths(currentMonth, 1));
+
+  const handleReset = () => {
+    const today = new Date();
+    setSelectedDate(today);
+    setCurrentMonth(startOfMonth(today));
+  };
+
+  const monthStart = startOfMonth(currentMonth);
+  const monthEnd = endOfMonth(currentMonth);
+  const startDate = startOfWeek(monthStart);
+  const endDate = endOfWeek(monthEnd);
+
+  const days = eachDayOfInterval({ start: startDate, end: endDate });
+
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    console.log("Form Data:", data);
   };
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-      {/* Left Column - Safari Pricing Tables */}
-      <div className="space-y-6">
-        {/* Jeep Safari Price Table */}
-        <div className="overflow-hidden rounded">
-          <div className="bg-[#f0a500] py-2 text-center font-bold text-white">
+    <div className="grid grid-cols-1 gap-8 p-4 lg:grid-cols-2">
+      {/* Left side - Information Tables */}
+      <div className="space-y-4">
+        {/* Jeep Safari Price & Safari Zones */}
+        <div className="overflow-hidden rounded-md">
+          <div className="bg-amber-500 py-2 text-center font-bold text-white">
             Jeep Safari Price & Safari Zones
           </div>
-          <div className="bg-[#2a2a2a] text-white">
-            <table className="w-full border-collapse">
-              <tbody>
-                <tr className="border-b border-gray-700">
-                  <td className="border-r border-gray-700 p-3">
-                    Price (Indian)
-                  </td>
-                  <td className="p-3">
-                    INR 7500 / - Jeep ( Maximum 6 Persons & 1 children (b/w - 5
-                    to 12 years) are allowed in ONE Jeep)
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-700">
-                  <td className="border-r border-gray-700 p-3">
-                    Price (Foreigner)
-                  </td>
-                  <td className="p-3">
-                    INR 16000 / Jeep ( Maximum 6 Persons & 1 children (b/w - 5
-                    to 12 years) are allowed in ONE Jeep )
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-700">
-                  <td className="border-r border-gray-700 p-3">Zones</td>
-                  <td className="p-3">
-                    Bijrani / Garjiya / Jhirna / Dhela / Durgadevi / Phato /
-                    Sitabani
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-700">
-                  <td className="border-r border-gray-700 p-3">Timings</td>
-                  <td className="p-3">
-                    Morning 6:00 AM - 9:00 AM | Evening 2:30 PM - 6:00 PM
-                    (Safari Timing Varies as Season Changes)
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border-r border-gray-700 p-3">Inclusions</td>
-                  <td className="p-3">
-                    Permission of CTR, Jeep, Driver, Permit and All Entries &
-                    Taxes.
-                    <br />* Guide Fee to be paid by the guest on the spot
-                    directly.
-                    <br />* Pick & drop is not included from hotels.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <Table className="border">
+            <TableBody>
+              <TableRow className="bg-gray-700 text-white">
+                <TableCell className="border font-medium">
+                  Price (Indian)
+                </TableCell>
+                <TableCell className="border">
+                  INR 7500 / - Jeep ( Maximum 6 Persons & 1 children (b/w - 5 to
+                  12 years) are allowed in ONE Jeep)
+                </TableCell>
+              </TableRow>
+              <TableRow className="bg-gray-700 text-white">
+                <TableCell className="border font-medium">
+                  Price (Foreigner)
+                </TableCell>
+                <TableCell className="border">
+                  INR 16000 / Jeep ( Maximum 6 Persons & 1 children (b/w - 5 to
+                  12 years) are allowed in ONE Jeep )
+                </TableCell>
+              </TableRow>
+              <TableRow className="bg-gray-700 text-white">
+                <TableCell className="border font-medium">Zones</TableCell>
+                <TableCell className="border">
+                  Bijrani / Garjiya / Jhirna / Dhela / Durgadevi / Phato /
+                  Sitabani
+                </TableCell>
+              </TableRow>
+              <TableRow className="bg-gray-700 text-white">
+                <TableCell className="border font-medium">Timings</TableCell>
+                <TableCell className="border">
+                  Morning 6:00 AM - 9:00 AM | Evening 2:30 PM - 6:00 PM (Safari
+                  Timing Varies as Season Changes)
+                </TableCell>
+              </TableRow>
+              <TableRow className="bg-gray-700 text-white">
+                <TableCell className="border font-medium">Inclusions</TableCell>
+                <TableCell className="border">
+                  Permission of CTR, Jeep, Driver, Permit and All Entries &
+                  Taxes.
+                  <br />* Guide Fee to be paid by the guest on the spot
+                  directly.
+                  <br />* Pick & drop is not included from hotels.
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
 
-        {/* Dhikala Canter Safari Price Table */}
-        <div className="overflow-hidden rounded">
-          <div className="bg-[#f0a500] py-2 text-center font-bold text-white">
+        {/* Dhikala Canter Safari Price */}
+        <div className="overflow-hidden rounded-md">
+          <div className="bg-amber-500 py-2 text-center font-bold text-white">
             Dhikala Canter Safari Price
           </div>
-          <div className="bg-[#2a2a2a] text-white">
-            <table className="w-full border-collapse">
-              <tbody>
-                <tr className="border-b border-gray-700">
-                  <td className="border-r border-gray-700 p-3">
-                    Price (Indian)
-                  </td>
-                  <td className="p-3">
-                    INR 2500 / Person ( ONE Canter has 16 Seats )
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-700">
-                  <td className="border-r border-gray-700 p-3">
-                    Price (Foreigner)
-                  </td>
-                  <td className="p-3">
-                    INR 5000 / Person ( ONE Canter has 16 Seats )
-                  </td>
-                </tr>
-                <tr className="border-b border-gray-700">
-                  <td className="border-r border-gray-700 p-3">Zones</td>
-                  <td className="p-3">Dhikala</td>
-                </tr>
-                <tr>
-                  <td className="border-r border-gray-700 p-3">Timings</td>
-                  <td className="p-3">
-                    Morning 6:00 AM - 11:30 AM | Evening 12:00 PM - 5:30 PM
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+          <Table className="border">
+            <TableBody>
+              <TableRow className="bg-gray-700 text-white">
+                <TableCell className="border font-medium">
+                  Price (Indian)
+                </TableCell>
+                <TableCell className="border">
+                  INR 2500 / Person ( ONE Canter has 16 Seats )
+                </TableCell>
+              </TableRow>
+              <TableRow className="bg-gray-700 text-white">
+                <TableCell className="border font-medium">
+                  Price (Foreigner)
+                </TableCell>
+                <TableCell className="border">
+                  INR 5000 / Person ( ONE Canter has 16 Seats )
+                </TableCell>
+              </TableRow>
+              <TableRow className="bg-gray-700 text-white">
+                <TableCell className="border font-medium">Zones</TableCell>
+                <TableCell className="border">Dhikala</TableCell>
+              </TableRow>
+              <TableRow className="bg-gray-700 text-white">
+                <TableCell className="border font-medium">Timings</TableCell>
+                <TableCell className="border">
+                  Morning 6:00 AM - 11:30 AM | Evening 12:00 PM - 5:30 PM
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
         </div>
       </div>
 
-      {/* Right Column - Booking Form */}
-      <div className="rounded bg-[#c9b18c] p-6">
-        <h2 className="mb-4 text-center text-2xl font-bold">
+      {/* Right side - Booking Form */}
+      <div className="rounded-md bg-stone-200 p-6">
+        <h2 className="mb-6 text-center text-2xl font-bold text-black">
           Corbett Safari Booking
         </h2>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            {/* Calendar Section */}
+            <div className="rounded-md bg-white p-4">
+              <div className="mb-2 flex items-center justify-between">
+                <button type="button" className="p-1" onClick={handlePrevMonth}>
+                  <ChevronLeft className="h-5 w-5 text-black" />
+                </button>
+                <div className="flex items-center gap-2">
+                  <span className="font-medium text-black">
+                    {format(currentMonth, "MMMM yyyy")}
+                  </span>
+                  <button type="button" className="p-1" onClick={handleReset}>
+                    <RotateCcw className="h-4 w-4 text-black" />
+                  </button>
+                </div>
+                <button type="button" className="p-1" onClick={handleNextMonth}>
+                  <ChevronRight className="h-5 w-5 text-black" />
+                </button>
+              </div>
 
-        {/* Calendar */}
-        <div className="mb-4 rounded bg-white">
-          <div className="flex items-center justify-between border-b p-2">
-            <button onClick={handlePrevMonth} className="p-1">
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <div className="text-center font-bold">April 2025</div>
-            <div className="flex">
-              <button className="p-1">
-                <Maximize2 className="h-5 w-5" />
-              </button>
-              <button onClick={handleNextMonth} className="p-1">
-                <ChevronRight className="h-5 w-5" />
-              </button>
+              <div className="grid grid-cols-7 gap-1 text-center">
+                {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
+                  <div key={day} className="bg-gray-700 p-2 text-sm text-white">
+                    {day}
+                  </div>
+                ))}
+
+                {days.map((date, index) => {
+                  const inCurrentMonth = isSameMonth(date, currentMonth);
+                  const isSelected = isSameDay(date, selectedDate);
+
+                  return (
+                    <div
+                      key={index}
+                      onClick={() => handleDateClick(date)}
+                      className={cn(
+                        "cursor-pointer p-2 transition-colors",
+                        !inCurrentMonth && "text-gray-400",
+                        isSelected && "bg-blue-500 text-white",
+                        inCurrentMonth &&
+                          !isSelected &&
+                          "bg-green-600 text-white hover:bg-green-700",
+                      )}
+                    >
+                      {format(date, "d")}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          </div>
 
-          <div className="p-2">
-            <div className="grid grid-cols-7 gap-1 text-center text-sm">
-              <div className="p-2 font-semibold">Su</div>
-              <div className="p-2 font-semibold">Mo</div>
-              <div className="p-2 font-semibold">Tu</div>
-              <div className="p-2 font-semibold">We</div>
-              <div className="p-2 font-semibold">Th</div>
-              <div className="p-2 font-semibold">Fr</div>
-              <div className="p-2 font-semibold">Sa</div>
+            {/* Form Fields */}
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="vehicle"
+                render={({ field }) => (
+                  <FormItem>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full bg-white text-black">
+                          <SelectValue placeholder="Select Vehicle" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="Jeep">Jeep</SelectItem>
+                        <SelectItem value="Canter">Canter</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-              {/* Empty cells for days before April 1 */}
-              <div className="p-2"></div>
-              <div className="p-2"></div>
-              <div className="p-2">01</div>
-              <div className="p-2">02</div>
-              <div className="p-2">03</div>
-              <div className="p-2">04</div>
-              <div className="rounded bg-red-500 p-2 text-white">05</div>
+              <FormField
+                control={form.control}
+                name="zone"
+                render={({ field }) => (
+                  <FormItem>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full bg-white text-black">
+                          <SelectValue placeholder="Select Zone" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="Bijrani">Bijrani</SelectItem>
+                        <SelectItem value="Garjiya">Garjiya</SelectItem>
+                        <SelectItem value="Jhirna">Jhirna</SelectItem>
+                        <SelectItem value="Dhela">Dhela</SelectItem>
+                        <SelectItem value="Durgadevi">Durgadevi</SelectItem>
+                        <SelectItem value="Phato">Phato</SelectItem>
+                        <SelectItem value="Sitabani">Sitabani</SelectItem>
+                        <SelectItem value="Dhikala">Dhikala</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-              {/* Week 2 */}
-              <div className="rounded bg-green-600 p-2 text-white">06</div>
-              <div className="rounded bg-green-600 p-2 text-white">07</div>
-              <div className="rounded bg-green-600 p-2 text-white">08</div>
-              <div className="rounded bg-green-600 p-2 text-white">09</div>
-              <div className="rounded bg-green-600 p-2 text-white">10</div>
-              <div className="rounded bg-green-600 p-2 text-white">11</div>
-              <div className="rounded bg-green-600 p-2 text-white">12</div>
+              <FormField
+                control={form.control}
+                name="timing"
+                render={({ field }) => (
+                  <FormItem>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full bg-white text-black">
+                          <SelectValue placeholder="Select Timing" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="Morning">Morning</SelectItem>
+                        <SelectItem value="Evening">Evening</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-              {/* Week 3 */}
-              <div className="rounded bg-green-600 p-2 text-white">13</div>
-              <div className="rounded bg-green-600 p-2 text-white">14</div>
-              <div className="rounded bg-green-600 p-2 text-white">15</div>
-              <div className="rounded bg-green-600 p-2 text-white">16</div>
-              <div className="rounded bg-green-600 p-2 text-white">17</div>
-              <div className="rounded bg-green-600 p-2 text-white">18</div>
-              <div className="rounded bg-green-600 p-2 text-white">19</div>
-
-              {/* Week 4 */}
-              <div className="rounded bg-green-600 p-2 text-white">20</div>
-              <div className="rounded bg-green-600 p-2 text-white">21</div>
-              <div className="rounded bg-green-600 p-2 text-white">22</div>
-              <div className="rounded bg-green-600 p-2 text-white">23</div>
-              <div className="rounded bg-green-600 p-2 text-white">24</div>
-              <div className="rounded bg-green-600 p-2 text-white">25</div>
-              <div className="rounded bg-green-600 p-2 text-white">26</div>
-
-              {/* Week 5 */}
-              <div className="rounded bg-green-600 p-2 text-white">27</div>
-              <div className="rounded bg-green-600 p-2 text-white">28</div>
-              <div className="rounded bg-green-600 p-2 text-white">29</div>
-              <div className="rounded bg-green-600 p-2 text-white">30</div>
-              <div className="p-2"></div>
-              <div className="p-2"></div>
-              <div className="p-2"></div>
+              <FormField
+                control={form.control}
+                name="adults"
+                render={({ field }) => (
+                  <FormItem>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full bg-white text-black">
+                          <SelectValue placeholder="Adult (above 12 yrs)" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {["1", "2", "3", "4", "5", "6"].map((val) => (
+                          <SelectItem key={val} value={val}>
+                            {val}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
-          </div>
-        </div>
 
-        {/* Form Fields */}
-        <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <div>
-            <select className="w-full rounded border p-2">
-              <option>Select Vehicle</option>
-              <option>Jeep</option>
-              <option>Canter</option>
-            </select>
-          </div>
-          <div>
-            <select className="w-full rounded border p-2">
-              <option>Select Zone</option>
-              <option>Bijrani</option>
-              <option>Garjiya</option>
-              <option>Jhirna</option>
-              <option>Dhela</option>
-              <option>Durgadevi</option>
-              <option>Phato</option>
-              <option>Sitabani</option>
-              <option>Dhikala</option>
-            </select>
-          </div>
-          <div>
-            <select className="w-full rounded border p-2">
-              <option>Select Timing</option>
-              <option>Morning</option>
-              <option>Evening</option>
-            </select>
-          </div>
-          <div>
-            <select className="w-full rounded border p-2">
-              <option>Adult (above 12 yrs)</option>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-            </select>
-          </div>
-          <div>
-            <select className="w-full rounded border p-2">
-              <option>Child (between 5 to 12 yrs)</option>
-              <option>0</option>
-              <option>1</option>
-            </select>
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Traveler Name"
-              className="w-full rounded border p-2"
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Mobile"
-              className="w-full rounded border p-2"
-            />
-          </div>
-          <div>
-            <input
-              type="email"
-              placeholder="Email ID"
-              className="w-full rounded border p-2"
-            />
-          </div>
-        </div>
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="children"
+                render={({ field }) => (
+                  <FormItem>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full bg-white text-black">
+                          <SelectValue placeholder="Child (between 5 to 12 yrs)" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {["0", "1"].map((val) => (
+                          <SelectItem key={val} value={val}>
+                            {val}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-        {/* Book Now Button */}
-        <div className="text-center">
-          <button className="rounded bg-green-600 px-8 py-3 font-bold text-white hover:bg-green-700">
-            Book Now
-          </button>
-        </div>
+              <FormField
+                control={form.control}
+                name="travelerName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Traveler Name"
+                        {...field}
+                        className="bg-white text-black"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="mobile"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Mobile"
+                        {...field}
+                        className="bg-white text-black"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Email ID"
+                        {...field}
+                        className="bg-white text-black"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full bg-green-600 hover:bg-green-700"
+            >
+              Book Now
+            </Button>
+          </form>
+        </Form>
       </div>
     </div>
   );

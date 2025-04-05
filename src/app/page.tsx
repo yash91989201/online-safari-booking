@@ -6,10 +6,8 @@ import { Footer } from "@/components/shared/footer";
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col">
-      {/* Disclaimer Header */}
       <Navbar />
 
-      {/* Hero Section with Tiger Image */}
       <div className="relative h-[400px] w-full md:h-[500px]">
         <Image
           src="/hero-img.jpg?height=500&width=1200"
@@ -20,7 +18,6 @@ export default function Home() {
         />
       </div>
 
-      {/* Content Section */}
       <section className="container mx-auto px-4 py-8">
         <h1 className="mb-4 text-3xl font-bold text-gray-800">
           Jim Corbett National Park
