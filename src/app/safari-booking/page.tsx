@@ -1,4 +1,4 @@
-import CorbettSafariBookingForm from "@/components/safari-booking/corbett-safari-booking-form";
+import CorbettBookingForm from "@/components/safari-booking/corbett-booking-form";
 import { Footer } from "@/components/shared/footer";
 import { Navbar } from "@/components/shared/navbar";
 import Image from "next/image";
@@ -10,7 +10,7 @@ export default function SafariBooking() {
 
       <section className="bg-black py-8 text-white">
         <div className="container mx-auto px-4">
-          <CorbettSafariBookingForm />
+          <CorbettBookingForm />
         </div>
       </section>
 
