@@ -28,7 +28,7 @@ export function Navbar() {
               Payment Now
             </Link>
             <Link href="/contact" className="hover:text-green-200">
-              +91-7827240348 | +91-8826878883
+              +91-8548269512
             </Link>
           </div>
         </div>
