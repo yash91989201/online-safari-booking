@@ -1,5 +1,6 @@
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { corbettBookingRouter } from "./routers/corbett-booking";
+import { genericPaymentRouter } from "./routers/generic-payment";
 
 /**
  * This is the primary router for your server.
@@ -8,6 +9,7 @@ import { corbettBookingRouter } from "./routers/corbett-booking";
  */
 export const appRouter = createTRPCRouter({
   corbettBooking: corbettBookingRouter,
+  genericPayment: genericPaymentRouter,
 });
 
 // export type definition of API

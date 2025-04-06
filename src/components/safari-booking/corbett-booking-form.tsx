@@ -97,7 +97,6 @@ export default function CorbettBookingForm() {
   const createBooking = api.corbettBooking.create.useMutation();
 
   const onSubmit: SubmitHandler<CorbettBookingFormType> = async (data) => {
-    console.log("submit");
     const result = await createBooking.mutateAsync(data);
 
     setPaymentDialog(false);

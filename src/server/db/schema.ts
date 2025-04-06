@@ -5,14 +5,10 @@ import {
   date,
   varchar,
   pgTable,
+  numeric,
+  text,
 } from "drizzle-orm/pg-core";
 
-/**
- * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
- * database instance for multiple projects.
- *
- * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
- */
 export const createTable = pgTableCreator(
   (name) => `online-safari-booking_${name}`,
 );
@@ -32,4 +28,20 @@ export const corbettBooking = pgTable("corbett_booking", {
   email: varchar("email").notNull(),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
+});
+
+export const genericPayments = pgTable("generic_payment", {
+  id: varchar("id")
+    .primaryKey()
+    .$defaultFn(() => cuid2.createId()),
+  amount: numeric("amount", { precision: 10, scale: 2 }).notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull(),
+  mobile: varchar("mobile", { length: 20 }).notNull(),
+  zip: varchar("zip", { length: 20 }).notNull(),
+  country: varchar("country", { length: 100 }).notNull(),
+  city: varchar("city", { length: 100 }).notNull(),
+  remark: text("remark").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
