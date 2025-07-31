@@ -1,612 +1,435 @@
+import { Button } from "@/components/ui/button";
+import {
+  Camera,
+  MapPin,
+  Calendar,
+  Users,
+  Star,
+  Trees,
+  Binoculars,
+  Mountain,
+  Sunset,
+  Clock,
+} from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import { Navbar } from "@/components/shared/navbar";
-import { Footer } from "@/components/shared/footer";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col">
-      <Navbar />
+    <div className="min-h-screen">
+      {/* Navigation Header */}
+      <header className="sticky top-0 z-50 border-b bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Trees className="h-8 w-8 text-green-600" />
+              <div>
+                <h1 className="text-xl font-bold text-green-800">
+                  Ranthambore National Park
+                </h1>
+                <p className="text-sm text-gray-600">Wildlife Safari Booking</p>
+              </div>
+            </div>
+            <nav className="hidden items-center space-x-6 md:flex">
+              <a
+                href="#"
+                className="text-gray-700 transition-colors hover:text-green-600"
+              >
+                Home
+              </a>
+              <a
+                href="#"
+                className="text-gray-700 transition-colors hover:text-green-600"
+              >
+                Safari Booking
+              </a>
+              <a
+                href="#"
+                className="text-gray-700 transition-colors hover:text-green-600"
+              >
+                About Park
+              </a>
+              <a
+                href="#"
+                className="text-gray-700 transition-colors hover:text-green-600"
+              >
+                Gallery
+              </a>
+              <a
+                href="#"
+                className="text-gray-700 transition-colors hover:text-green-600"
+              >
+                Contact
+              </a>
+              <Button>Book Now</Button>
+            </nav>
+          </div>
+        </div>
+      </header>
 
-      <div className="relative h-[400px] w-full md:h-[500px]">
+      {/* Hero Section */}
+      <section className="relative h-[80vh] bg-gradient-to-br from-green-900 via-green-800 to-orange-900">
         <Image
-          src="/hero-img.jpg?height=500&width=1200"
-          alt="Tiger in Corbett National Park"
+          src="/hero-image.jpg"
+          alt="Ranthambore National Park Wildlife Safari"
           fill
           priority
           className="object-cover"
         />
-      </div>
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative z-10 container mx-auto flex h-full items-center justify-end px-4">
+          <div className="max-w-2xl text-white">
+            <h2 className="mb-6 text-5xl leading-tight font-bold md:text-6xl">
+              Experience the Wild Heart of
+              <span className="text-orange-400"> Ranthambore</span>
+            </h2>
+            <p className="mb-8 text-xl text-gray-200">
+              Discover the majestic Royal Bengal Tigers and diverse wildlife in
+              one of India&apos;s most renowned national parks. Book your
+              unforgettable safari adventure today.
+            </p>
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Button
+                size="lg"
+                className="bg-orange-600 px-8 text-white hover:bg-orange-700"
+              >
+                <Calendar className="mr-2 h-5 w-5" />
+                Book Safari Now
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-white text-black hover:bg-white hover:text-gray-900"
+              >
+                <Camera className="mr-2 h-5 w-5" />
+                View Gallery
+              </Button>
+            </div>
+          </div>
+        </div>
 
-      <section className="container mx-auto px-4 py-16">
-        <h1 className="mb-4 text-3xl font-bold text-gray-800">
-          Jim Corbett National Park
-        </h1>
-        <div className="space-y-4 text-gray-700">
-          <p>
-            The Jim Corbett National Park is a part of the largest Corbett Tiger
-            Reserve; the Project Tiger lies in the Nainital district of
-            Uttarakhand. The Majestic landscape of Corbett is well-known for its
-            tiger richness. Established in the year 1936 as Hailey National
-            Park, Corbett has the glory of being India&apos;s oldest and most
-            prestigious National Park. It is also being honoured as the place
-            where Project Tiger was first launched in the year 1973. This Unique
-            tiger territory is best known as the father who gave birth to
-            Project Tiger in India to safeguard the most endangered species and
-            the Royal wild animal of India called Tigers.
-          </p>
+        {/* Hero Stats */}
+        <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 transform">
+          <div className="rounded-lg bg-white/10 px-6 py-4 text-white backdrop-blur-sm">
+            <div className="flex items-center space-x-8 text-sm">
+              <div className="flex items-center space-x-2">
+                <MapPin className="h-4 w-4" />
+                <span>392 km²</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Users className="h-4 w-4" />
+                <span>60+ Tigers</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Star className="h-4 w-4" />
+                <span>4.5 Rating</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* We Offer Best Services Section */}
-      <section className="bg-gray-100 py-12">
+      {/* Welcome Section */}
+      <section className="bg-gray-50 py-20">
         <div className="container mx-auto px-4">
-          <h2 className="mb-6 text-center text-3xl font-bold">
-            We Offer Best Services
-          </h2>
-          <div className="mx-auto mb-10 max-w-3xl">
-            <p className="text-center text-gray-700">
-              To ensure quality services at every step of your vacation we go
-              above and beyond. Our highly expert professionals are obsessed
-              with the idea of empowering vacationers with the best deals. We
-              have a team of expert professionals having experience of over a
-              decade in travel and tourism. You may find here an array of ideas
-              empowering the idea of your wildlife holiday.
+          <div className="grid items-center gap-12 md:grid-cols-2">
+            <div>
+              <h3 className="mb-6 text-4xl font-bold text-gray-900">
+                Welcome to Ranthambore National Park
+              </h3>
+              <p className="mb-6 text-lg text-gray-600">
+                Ranthambore National Park is one of the largest national parks
+                in northern India, situated in the Sawai Madhopur district of
+                southeastern Rajasthan. The park is a vital Project Tiger
+                reserve and is famous for its tiger population and is one of the
+                best places in India to see these magnificent predators in their
+                natural habitat.
+              </p>
+              <p className="mb-8 text-lg text-gray-600">
+                The park covers an area of 392 square kilometers and is known
+                for its diverse wildlife, ancient ruins, lakes, and the majestic
+                Ranthambore Fort, a UNESCO World Heritage Site.
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-center space-x-2">
+                  <Trees className="h-5 w-5 text-green-600" />
+                  <span className="text-gray-700">392 km² Area</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Mountain className="h-5 w-5 text-green-600" />
+                  <span className="text-gray-700">Historic Fort</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Binoculars className="h-5 w-5 text-green-600" />
+                  <span className="text-gray-700">300+ Bird Species</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Sunset className="h-5 w-5 text-green-600" />
+                  <span className="text-gray-700">10 Safari Zones</span>
+                </div>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="rounded-lg bg-green-100 p-6 text-center">
+                  <Users className="mx-auto mb-2 h-8 w-8 text-green-600" />
+                  <div className="text-2xl font-bold text-gray-900">60+</div>
+                  <div className="text-sm text-gray-600">Tigers</div>
+                </div>
+                <div className="rounded-lg bg-orange-100 p-6 text-center">
+                  <Trees className="mx-auto mb-2 h-8 w-8 text-orange-600" />
+                  <div className="text-2xl font-bold text-gray-900">300+</div>
+                  <div className="text-sm text-gray-600">Bird Species</div>
+                </div>
+                <div className="rounded-lg bg-blue-100 p-6 text-center">
+                  <MapPin className="mx-auto mb-2 h-8 w-8 text-blue-600" />
+                  <div className="text-2xl font-bold text-gray-900">10</div>
+                  <div className="text-sm text-gray-600">Safari Zones</div>
+                </div>
+                <div className="rounded-lg bg-purple-100 p-6 text-center">
+                  <Mountain className="mx-auto mb-2 h-8 w-8 text-purple-600" />
+                  <div className="text-2xl font-bold text-gray-900">1</div>
+                  <div className="text-sm text-gray-600">UNESCO Site</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Top Things to Do Section */}
+      <section className="bg-white py-20">
+        <div className="container mx-auto px-4">
+          <div className="mb-16 text-center">
+            <h3 className="mb-4 text-4xl font-bold text-gray-900">
+              Top Things to Do
+            </h3>
+            <p className="mx-auto max-w-2xl text-lg text-gray-600">
+              Discover the best experiences Ranthambore National Park has to
+              offer, from thrilling tiger safaris to exploring ancient ruins.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-            {/* Safari Booking */}
-            <div className="flex flex-col items-center">
-              <div className="mb-4 h-40 w-40 overflow-hidden rounded-full">
-                <Image
-                  src="/safari-booking-service.jpg?height=160&width=160"
-                  alt="Safari Booking"
-                  width={160}
-                  height={160}
-                  className="object-cover"
-                />
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {/* Tiger Safari Card */}
+            <div className="flex h-full flex-col overflow-hidden rounded-xl border bg-white shadow-sm transition-shadow hover:shadow-lg">
+              <div className="relative h-56 bg-gradient-to-br from-orange-500 to-red-600">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Binoculars className="h-16 w-16 text-white/80" />
+                </div>
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Safari Booking</h3>
-              <Link
-                href="/safari-booking"
-                className="flex items-center text-orange-500 hover:underline"
-              >
-                Book Now <span className="ml-1">→</span>
-              </Link>
+              <div className="flex flex-1 flex-col p-6">
+                <div className="mb-2">
+                  <h4 className="flex items-center gap-2 text-xl font-semibold">
+                    <Camera className="h-5 w-5 text-orange-600" />
+                    Tiger Safari
+                  </h4>
+                </div>
+                <p className="mb-4 text-sm text-gray-600">
+                  Experience the thrill of spotting Royal Bengal Tigers in their
+                  natural habitat
+                </p>
+                <div className="mb-4 flex items-center gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <Clock className="h-4 w-4" />
+                    <span>3-4 hours</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4 text-yellow-500" />
+                    <span>4.8</span>
+                  </div>
+                </div>
+                <p className="mb-6 flex-1 text-gray-600">
+                  Join our expert guides for an unforgettable tiger tracking
+                  experience across multiple zones.
+                </p>
+                <Button className="w-full">Book Tiger Safari</Button>
+              </div>
             </div>
 
-            {/* Tour Booking */}
-            <div className="flex flex-col items-center">
-              <div className="mb-4 h-40 w-40 overflow-hidden rounded-full">
-                <Image
-                  src="/tour-booking-service.jpg?height=160&width=160"
-                  alt="Tour Booking"
-                  width={160}
-                  height={160}
-                  className="object-cover"
-                />
+            {/* Bird Watching Card */}
+            <div className="flex h-full flex-col overflow-hidden rounded-xl border bg-white shadow-sm transition-shadow hover:shadow-lg">
+              <div className="relative h-56 bg-gradient-to-br from-green-500 to-teal-600">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Trees className="h-16 w-16 text-white/80" />
+                </div>
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Tour Booking</h3>
-              <Link
-                href="/tour-package"
-                className="flex items-center text-orange-500 hover:underline"
-              >
-                Book Now <span className="ml-1">→</span>
-              </Link>
+              <div className="flex flex-1 flex-col p-6">
+                <div className="mb-2">
+                  <h4 className="flex items-center gap-2 text-xl font-semibold">
+                    <Trees className="h-5 w-5 text-green-600" />
+                    Bird Watching
+                  </h4>
+                </div>
+                <p className="mb-4 text-sm text-gray-600">
+                  Spot over 300 bird species including rare and migratory birds
+                </p>
+                <div className="mb-4 flex items-center gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <Clock className="h-4 w-4" />
+                    <span>2-3 hours</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4 text-yellow-500" />
+                    <span>4.6</span>
+                  </div>
+                </div>
+                <p className="mb-6 flex-1 text-gray-600">
+                  Perfect for nature enthusiasts and photographers looking to
+                  capture diverse avian species.
+                </p>
+                <Button variant="outline" className="w-full">
+                  Book Bird Tour
+                </Button>
+              </div>
             </div>
 
-            {/* Hotel Booking */}
-            <div className="flex flex-col items-center">
-              <div className="mb-4 h-40 w-40 overflow-hidden rounded-full">
-                <Image
-                  src="/hotel-booking-service.jpg?height=160&width=160"
-                  alt="Hotel Booking"
-                  width={160}
-                  height={160}
-                  className="object-cover"
-                />
+            {/* Fort Exploration Card */}
+            <div className="flex h-full flex-col overflow-hidden rounded-xl border bg-white shadow-sm transition-shadow hover:shadow-lg">
+              <div className="relative h-56 bg-gradient-to-br from-purple-500 to-indigo-600">
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Mountain className="h-16 w-16 text-white/80" />
+                </div>
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Hotel Booking</h3>
-              <Link
-                href="/hotels"
-                className="flex items-center text-orange-500 hover:underline"
-              >
-                Book Now <span className="ml-1">→</span>
-              </Link>
-            </div>
-
-            {/* Dhikala Booking */}
-            <div className="flex flex-col items-center">
-              <div className="mb-4 h-40 w-40 overflow-hidden rounded-full">
-                <Image
-                  src="/dhikala-booking-service.jpg?height=160&width=160"
-                  alt="Dhikala Booking"
-                  width={160}
-                  height={160}
-                  className="object-cover"
-                />
+              <div className="flex flex-1 flex-col p-6">
+                <div className="mb-2">
+                  <h4 className="flex items-center gap-2 text-xl font-semibold">
+                    <Mountain className="h-5 w-5 text-purple-600" />
+                    Fort Exploration
+                  </h4>
+                </div>
+                <p className="mb-4 text-sm text-gray-600">
+                  Explore the historic Ranthambore Fort, a UNESCO World Heritage
+                  Site
+                </p>
+                <div className="mb-4 flex items-center gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <Clock className="h-4 w-4" />
+                    <span>2-3 hours</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Star className="h-4 w-4 text-yellow-500" />
+                    <span>4.4</span>
+                  </div>
+                </div>
+                <p className="mb-6 flex-1 text-gray-600">
+                  Discover ancient temples, ruins, and breathtaking views from
+                  this 10th-century fort.
+                </p>
+                <Button variant="secondary" className="w-full">
+                  Explore Fort
+                </Button>
               </div>
-              <h3 className="mb-2 text-xl font-semibold">Dhikala Booking</h3>
-              <Link
-                href="/safari-booking"
-                className="flex items-center text-orange-500 hover:underline"
-              >
-                Book Now <span className="ml-1">→</span>
-              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Book Your Jeep Safari Section */}
-      <section className="relative h-[500px]">
-        {/* Background Overlay */}
-        <div className="absolute inset-0 z-10 bg-black/50"></div>
-
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <Image
-            src="/jeep-safari-section-tiger.jpg?height=500&width=1200"
-            alt="Tiger Safari"
-            fill
-            className="object-cover"
-          />
-        </div>
-
-        {/* Centered Text Content */}
-        <div className="relative z-20 flex h-full items-center justify-center px-4">
-          <div className="max-w-3xl text-center text-white">
-            <h2 className="mb-6 text-4xl font-bold">Book Your Jeep Safari!</h2>
-            <p className="mb-8">
-              Jeep Safari is available only within the Corbett Sanctuary Zone.
-              Though it&apos;s threatening, you will enjoy the night-time
-              panorama immensely. There are many zones out here that will give
-              you a jeep safari to experience the sights of the region. The
-              Morning Safari timings are from 6:30 AM to 9:30 AM during winter
-              and in summer, 5:30 AM to 8:30 AM. And, the evening safari timings
-              are from 2:30 PM to 5:30 PM during winter and in summer, 3:30 PM
-              to 6:30 PM.
+      {/* The Best Safari Experience Section */}
+      <section className="bg-gradient-to-br from-orange-50 to-orange-100 py-20">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto mb-16 max-w-4xl text-center">
+            <h3 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              The Best Safari Experience
+            </h3>
+            <p className="mb-8 text-lg leading-relaxed text-gray-600">
+              Immerse yourself in the untamed beauty of Ranthambore National
+              Park, where every safari brings you closer to nature&apos;s most
+              magnificent creatures. Our expert guides ensure you witness the
+              park&apos;s diverse wildlife in their natural habitat, creating
+              memories that will last a lifetime.
             </p>
-            <Link
-              href="/safari-booking"
-              className="inline-block rounded-md bg-orange-500 px-8 py-3 font-semibold text-white transition hover:bg-orange-600"
-            >
-              Online Booking
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* The Tourist Zones Section */}
-      <section className="bg-white py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-6 text-3xl font-bold">The Tourist Zones</h2>
-          <p className="mb-8 text-gray-700">
-            To promote tourism in this region, the Corbett National Park has
-            been divided into six major different tourism zones. These are the
-            manifested core or buffer areas of the park where visitors can be a
-            part of the wildlife safari and can relish the tempting behaviour of
-            the animals with their bare eyes in the vicinity.
-          </p>
-
-          <div className="grid gap-8 md:grid-cols-3">
-            <div className="space-y-6 md:col-span-2">
-              <div>
-                <h3 className="text-xl font-bold">Bijrani Safari Zone</h3>
-                <p className="text-gray-700">
-                  Bijrani Zone is a very popular tourist hub because of its
-                  bountiful natural beauty and open grasslands. The entry gate
-                  of the zone is located at only 1 Km from Ramnagar city.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold">Jhirna Safari Zone</h3>
-                <p className="text-gray-700">
-                  Jhirna is another important tourist zone in the Jim Corbett
-                  National park which is open for tourists round the year.
-                  Jhirna Gate is located at a distance of 16 km from Ramnagar
-                  city.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold">Dhela Safari Zone</h3>
-                <p className="text-gray-700">
-                  Dhela is a new eco-tourism zone in the Corbett National Park
-                  which was included in the tiger reserve zone in November 2014.
-                  This is the only area in the reserve&apos;s buffer zone open
-                  for tourists in CTR. The Zone is retaining the attention of a
-                  large number of tourists because of its rich biodiversity and
-                  is open throughout the year. Also, it is located at an
-                  approximate distance of 13 Km from Ramnagar City.
-                </p>
-              </div>
-            </div>
-
-            <div className="md:col-span-1">
-              <div className="overflow-hidden rounded-lg">
-                <Image
-                  src="/tourist-zone-tiger.jpg?height=400&width=300"
-                  alt="Tiger in Corbett"
-                  width={300}
-                  height={400}
-                  className="h-auto w-full object-cover"
-                />
-              </div>
-            </div>
           </div>
 
-          <div className="mt-8 grid gap-8 md:grid-cols-3">
-            <div className="md:col-span-1">
-              <div className="overflow-hidden rounded-lg">
-                <Image
-                  src="/tourist-zone-elephant.jpg?height=300&width=400"
-                  alt="Elephant Safari"
-                  width={400}
-                  height={300}
-                  className="h-auto w-full object-cover"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-6 md:col-span-2">
-              <div>
-                <h3 className="text-xl font-bold">Dhikala Zone</h3>
-                <p className="text-gray-700">
-                  Being the largest and the most diversified jungle safari zone
-                  in Corbett, Dhikala is famous for its bountiful natural beauty
-                  as well as for offering the best sight for its exotic fauna.
-                  The Entry gate is 18 km away from Ramnagar city. Night stay
-                  inside the Dhikala Tourism Zone is highly recommended for the
-                  hardcore wildlife enthusiasts.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold">Durga Devi Zone</h3>
-                <p className="text-gray-700">
-                  Located at the north eastern boundary of the Jim Corbett
-                  National Park, Durga Devi zone is the heaven on planet earth
-                  for those who are fond of bird watching. The Entry gate is
-                  located at an approximate distance of 36 km from Ramnagar
-                  city.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-xl font-bold">Sitabani Buffer Zone</h3>
-                <p className="text-gray-700">
-                  Sitabani Zone doesn&apos;t fall under the Corbett Tiger
-                  Reserve area. But, if you are fond of the serene ambiance of
-                  the natural beauty, you must visit the Sitabani area.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Corbett Hotel & Resort Section */}
-      <section className="bg-gray-100 py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-4 text-3xl font-bold">Corbett Hotel & Resort</h2>
-          <p className="mb-8 text-gray-700">
-            Corbett National Park is one of the leading tourist destinations in
-            Uttrakhand which allures travelers across the globe. Corbett is
-            embellished with amusing wildlife and an abundance of rich flora and
-            fauna. People come from different regions here for satisfying their
-            adventurous souls. Most of the royal hotels and resorts dotted here
-            for destination weddings for the candid green space as their
-            backdrop. The Organic décor complements superbly and suits best.
-          </p>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {/* De Coracao Resort */}
-            <div className="overflow-hidden rounded-lg bg-white shadow-md">
-              <div className="relative h-48">
-                <Image
-                  src="/resort-1.jpg?height=200&width=300"
-                  alt="De Coracao Resort"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="mb-2 text-lg font-semibold">
-                  De Coracao Resort
-                </h3>
-                <div className="flex justify-center">
-                  <div className="flex text-yellow-400">
-                    <span>★</span>
-                    <span>★</span>
-                    <span>★</span>
-                    <span>★</span>
-                    <span className="text-gray-300">★</span>
-                  </div>
+          {/* Safari Experience Cards */}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {/* Safari Zones Card */}
+            <div className="group relative overflow-hidden rounded-xl shadow-lg transition-transform hover:scale-105">
+              <div className="relative h-80 bg-gradient-to-br from-green-600 to-green-800">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Trees className="h-20 w-20 text-white/70" />
+                </div>
+                <div className="absolute right-6 bottom-6 left-6 text-center">
+                  <h4 className="mb-3 text-2xl font-bold text-white">
+                    Safari Zones
+                  </h4>
+                  <Button
+                    variant="outline"
+                    className="border-white bg-transparent text-white transition-colors duration-200 hover:bg-white hover:text-green-800"
+                  >
+                    <MapPin className="mr-2 h-4 w-4" />
+                    Explore Zones
+                  </Button>
                 </div>
               </div>
             </div>
 
-            {/* Corbett Wild Iris Spa & Resort */}
-            <div className="overflow-hidden rounded-lg bg-white shadow-md">
-              <div className="relative h-48">
-                <Image
-                  src="/resort-2.jpg?height=200&width=300"
-                  alt="Corbett Wild Iris Spa & Resort"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="mb-2 text-lg font-semibold">
-                  Corbett Wild Iris Spa & Resort
-                </h3>
-                <div className="flex justify-center">
-                  <div className="flex text-yellow-400">
-                    <span>★</span>
-                    <span>★</span>
-                    <span>★</span>
-                    <span>★</span>
-                    <span className="text-gray-300">★</span>
-                  </div>
+            {/* Conservation Card */}
+            <div className="group relative overflow-hidden rounded-xl shadow-lg transition-transform hover:scale-105">
+              <div className="relative h-80 bg-gradient-to-br from-blue-600 to-blue-800">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Mountain className="h-20 w-20 text-white/70" />
+                </div>
+                <div className="absolute right-6 bottom-6 left-6 text-center">
+                  <h4 className="mb-3 text-2xl font-bold text-white">
+                    Conservation
+                  </h4>
+                  <Button
+                    variant="outline"
+                    className="border-white bg-transparent text-white transition-colors duration-200 hover:bg-white hover:text-blue-800"
+                  >
+                    Learn More
+                  </Button>
                 </div>
               </div>
             </div>
 
-            {/* Infinity Resort, Corbett */}
-            <div className="overflow-hidden rounded-lg bg-white shadow-md">
-              <div className="relative h-48">
-                <Image
-                  src="/resort-3.jpg?height=200&width=300"
-                  alt="Infinity Resort, Corbett"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="mb-2 text-lg font-semibold">
-                  Infinity Resort, Corbett
-                </h3>
-                <div className="flex justify-center">
-                  <div className="flex text-yellow-400">
-                    <span>★</span>
-                    <span>★</span>
-                    <span>★</span>
-                    <span>★</span>
-                    <span className="text-gray-300">★</span>
-                  </div>
+            {/* Wildlife Protection Card */}
+            <div className="group relative overflow-hidden rounded-xl shadow-lg transition-transform hover:scale-105">
+              <div className="relative h-80 bg-gradient-to-br from-orange-600 to-red-600">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Binoculars className="h-20 w-20 text-white/70" />
+                </div>
+                <div className="absolute right-6 bottom-6 left-6 text-center">
+                  <h4 className="mb-3 text-2xl font-bold text-white">
+                    Wildlife Protection
+                  </h4>
+                  <Button
+                    variant="outline"
+                    className="border-white bg-transparent text-white transition-colors duration-200 hover:bg-white hover:text-orange-800"
+                  >
+                    Support Now
+                  </Button>
                 </div>
               </div>
             </div>
 
-            {/* Beyond Stay Vasavana Resort */}
-            <div className="overflow-hidden rounded-lg bg-white shadow-md">
-              <div className="relative h-48">
-                <Image
-                  src="/resort-4.jpg?height=200&width=300"
-                  alt="Beyond Stay Vasavana Resort"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-4 text-center">
-                <h3 className="mb-2 text-lg font-semibold">
-                  Beyond Stay Vasavana Resort
-                </h3>
-                <div className="flex justify-center">
-                  <div className="flex text-yellow-400">
-                    <span>★</span>
-                    <span>★</span>
-                    <span>★</span>
-                    <span>★</span>
-                    <span className="text-gray-300">★</span>
-                  </div>
+            {/* Park Membership Card */}
+            <div className="group relative overflow-hidden rounded-xl shadow-lg transition-transform hover:scale-105">
+              <div className="relative h-80 bg-gradient-to-br from-purple-600 to-indigo-600">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Users className="h-20 w-20 text-white/70" />
+                </div>
+                <div className="absolute right-6 bottom-6 left-6 text-center">
+                  <h4 className="mb-3 text-2xl font-bold text-white">
+                    Park Membership
+                  </h4>
+                  <Button
+                    variant="outline"
+                    className="border-white bg-transparent text-white transition-colors duration-200 hover:bg-white hover:text-purple-800"
+                  >
+                    <Users className="mr-2 h-4 w-4" />
+                    Join Now
+                  </Button>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Geographical Details Section */}
-      <section className="bg-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid gap-8 md:grid-cols-2">
-            {/* Geographical Details */}
-            <div>
-              <h2 className="mb-4 text-2xl font-bold">
-                Geographical Details about Park
-              </h2>
-              <div className="mb-4">
-                <div className="mb-4 h-64 rounded-lg bg-gray-200">
-                  <Image
-                    src="/google-map.jpg?height=300&width=500"
-                    alt="Corbett National Park Map"
-                    width={500}
-                    height={300}
-                    className="h-full w-full rounded-lg object-cover"
-                  />
-                </div>
-                <div className="text-center">View Google Map</div>
-              </div>
-              <ul className="space-y-2">
-                <li className="bg-gray-100 px-4 py-2">
-                  1. Total Forest Area – 1318.54 square kilometres
-                </li>
-                <li className="px-4 py-2">
-                  2. Core Area – 520 square kilometres
-                </li>
-                <li className="bg-gray-100 px-4 py-2">
-                  3. Type of Forest – Dense moist deciduous forest mainly
-                  consists of sal, haldu, peepal, rohini and mango trees
-                </li>
-                <li className="px-4 py-2">
-                  4. Rivers – Kosi River, River Ramganga
-                </li>
-                <li className="bg-gray-100 px-4 py-2">
-                  5. Hills – Nainital, Bhimtal, Naukichital, Rishikesh, Sattal
-                </li>
-                <li className="px-4 py-2">
-                  6. Temperature – maximum 40 degree Celsius in summer and 8
-                  degree in winter
-                </li>
-                <li className="bg-gray-100 px-4 py-2">
-                  7. Annual Rainfall – The average rainfall of Corbett National
-                  Park is 1133mm
-                </li>
-              </ul>
-            </div>
-
-            {/* Road Distance */}
-            <div>
-              <h2 className="mb-4 text-2xl font-bold">
-                Road Distance from Corbett to following Cities
-              </h2>
-              <ul className="space-y-2">
-                <li className="bg-gray-100 px-4 py-2">
-                  1. New Delhi Ramnagar (Jim Corbett Park) via Moradabad 260 Km
-                </li>
-                <li className="px-4 py-2">
-                  2. Lucknow Jim Corbett Park via Bareilly, Moradabad 435 Km
-                </li>
-                <li className="bg-gray-100 px-4 py-2">
-                  3. Kanpur Jim Corbett National Park via Farrukhabad, Bareilly,
-                  Rampur 460 Km
-                </li>
-                <li className="px-4 py-2">
-                  4. Moradabad Jim Corbett Park via Kashipur 95 Km
-                </li>
-                <li className="bg-gray-100 px-4 py-2">
-                  5. Kathgodam Jim Corbett Park via Kaladhungi 55 Km
-                </li>
-                <li className="px-4 py-2">
-                  6. Nainital Jim Corbett Park via Kaladhungi 60 Km
-                </li>
-                <li className="bg-gray-100 px-4 py-2">
-                  7. Almora Jim Corbett Park via Nainital 134 Km
-                </li>
-                <li className="px-4 py-2">
-                  8. Kausani Ramnagar via Bhikyasan 155 Km
-                </li>
-                <li className="bg-gray-100 px-4 py-2">
-                  9. Ranikhet Ramnagar via Bhikyasan 100 Km
-                </li>
-                <li className="px-4 py-2">
-                  10. Ranikhet Ramnagar via Bhikyasan 100 Km
-                </li>
-                <li className="bg-gray-100 px-4 py-2">
-                  11. Ranikhet Ramnagar via Bhikyasan 100 Km
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Latest Blog Section */}
-      <section className="bg-gray-50 py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="mb-10 text-3xl font-bold">Latest Blog</h2>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {/* Blog Post 1 */}
-            <div>
-              <div className="mb-4 overflow-hidden rounded-lg">
-                <Image
-                  src="/blog-1.jpg?height=200&width=300"
-                  alt="Fishing and Angling at Jim Corbett Park"
-                  width={300}
-                  height={200}
-                  className="h-auto w-full"
-                />
-              </div>
-              <h3 className="mb-2 text-lg font-bold">
-                Fishing and Angling at Jim Corbett Park
-              </h3>
-              <p className="mb-2 text-sm text-gray-700">
-                Situated in the district of Nainital, Uttarakhand Jim Corbett
-                National...
-              </p>
-              <Link href="/blog" className="text-orange-500 hover:underline">
-                Read More
-              </Link>
-            </div>
-
-            {/* Blog Post 2 */}
-            <div>
-              <div className="mb-4 overflow-hidden rounded-lg">
-                <Image
-                  src="/blog-2.jpg?height=200&width=300"
-                  alt="Bird Watching Tour at Jim Corbett"
-                  width={300}
-                  height={200}
-                  className="h-auto w-full"
-                />
-              </div>
-              <h3 className="mb-2 text-lg font-bold">
-                Bird Watching Tour at Jim Corbett
-              </h3>
-              <p className="mb-2 text-sm text-gray-700">
-                Tiger Sighting and Bird watching go hand in hand at Corbett
-                National...
-              </p>
-              <Link href="/blog" className="text-orange-500 hover:underline">
-                Read More
-              </Link>
-            </div>
-
-            {/* Blog Post 3 */}
-            <div>
-              <div className="mb-4 overflow-hidden rounded-lg">
-                <Image
-                  src="/blog-3.jpg?height=200&width=300"
-                  alt="UK High Court Directs State govt to Declare Elephant Safari"
-                  width={300}
-                  height={200}
-                  className="h-auto w-full"
-                />
-              </div>
-              <h3 className="mb-2 text-lg font-bold">
-                UK High Court Directs State govt to Declare Elephant Safari
-              </h3>
-              <p className="mb-2 text-sm text-gray-700">
-                Uttarakhand High Court ordered the Central Government to
-                seriously...
-              </p>
-              <Link href="/blog" className="text-orange-500 hover:underline">
-                Read More
-              </Link>
-            </div>
-
-            {/* Blog Post 4 */}
-            <div>
-              <div className="mb-4 overflow-hidden rounded-lg">
-                <Image
-                  src="/blog-4.jpg?height=200&width=300"
-                  alt="Wildlife Trip to India's Oldest National Park"
-                  width={300}
-                  height={200}
-                  className="h-auto w-full"
-                />
-              </div>
-              <h3 className="mb-2 text-lg font-bold">
-                Wildlife Trip to India&apos;s Oldest National Park
-              </h3>
-              <p className="mb-2 text-sm text-gray-700">
-                Established as a Hailey National Park in the year of 1936 to
-                protect the...
-              </p>
-              <Link href="/blog" className="text-orange-500 hover:underline">
-                Read More
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <Footer />
-    </main>
+    </div>
   );
 }
