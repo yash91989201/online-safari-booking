@@ -37,7 +37,7 @@ export default function Home() {
                 Home
               </a>
               <a
-                href="#"
+                href="/safari-booking"
                 className="text-gray-700 transition-colors hover:text-green-600"
               >
                 Safari Booking
@@ -46,21 +46,8 @@ export default function Home() {
                 href="#"
                 className="text-gray-700 transition-colors hover:text-green-600"
               >
-                About Park
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 transition-colors hover:text-green-600"
-              >
-                Gallery
-              </a>
-              <a
-                href="#"
-                className="text-gray-700 transition-colors hover:text-green-600"
-              >
                 Contact
               </a>
-              <Button>Book Now</Button>
             </nav>
           </div>
         </div>
