@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 export const CorbettBookingFormSchema = z.object({
-  date: z.date({ required_error: "Date is required" }),
+  date: z.date({ error: "Date is required" }),
   vehicle: z.string().min(1, "Please select a vehicle"),
   zone: z.string().min(1, "Please select a zone"),
   timing: z.string().min(1, "Please select a timing"),
@@ -21,4 +21,16 @@ export const GenericPaymentFormSchema = z.object({
   country: z.string().min(1, { message: "Country is required" }),
   city: z.string().min(1, { message: "City name is required" }),
   remark: z.string().min(1, { message: "A small remark is required" }),
+});
+
+export const SafariBookingFormSchema = z.object({
+  date: z.date(),
+  selectedZone: z.string().min(1, "Please select a safari zone."),
+  selectedVehicle: z.string().min(1, "Please select a vehicle type."),
+  selectedTime: z.string().min(1, "Please select a time slot."),
+  adults: z.string().min(1, "Please specify the number of adults."),
+  children: z.string().min(1, "Please specify the number of children."),
+  fullName: z.string().min(2, "Full name must be at least 2 characters."),
+  phoneNumber: z.string().min(10, "Phone number must be at least 10 digits."),
+  email: z.string().email("Invalid email address."),
 });
