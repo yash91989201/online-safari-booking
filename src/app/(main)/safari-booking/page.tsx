@@ -1,5 +1,3 @@
-"use client";
-
 import { SafariBookingForm } from "@/components/safari-booking-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ClockIcon } from "lucide-react";
@@ -11,11 +9,9 @@ export default function SafariBookingPage() {
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="grid gap-8 lg:grid-cols-2">
-        {/* Left Column - Safari Pricing Tables */}
         <div className="space-y-6">
           <SafariPricingCard />
 
-          {/* Safari Information Card */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -48,11 +44,9 @@ export default function SafariBookingPage() {
           </Card>
         </div>
 
-        {/* Right Column - Booking Form */}
         <SafariBookingForm />
       </div>
 
-      {/* Additional Information */}
       <AdditionalInfoSection />
     </main>
   );
